@@ -146,6 +146,7 @@ public class DocumentFrame extends JFrame implements AccountSelectionListener {
 	private JMenuItem pasteMenuItem;
 	private JMenuItem coaMenuItem;
 	private JMenuItem vatDocumentMenuItem;
+	private JMenuItem importFromCsvMenuItem;
 	private JMenuItem editEntryTemplatesMenuItem;
 	private JMenuItem createEntryTemplateMenuItem;
 	private JMenuItem startingBalancesMenuItem;
@@ -490,6 +491,12 @@ public class DocumentFrame extends JFrame implements AccountSelectionListener {
 						shortcutKeyMask), vatDocumentListener);
 
 		menu.add(vatDocumentMenuItem);
+
+		importFromCsvMenuItem = SwingUtils.createMenuItem("Tuo tapahtumat pankki CSV:stä",
+				null, 'c', KeyStroke.getKeyStroke(KeyEvent.VK_B,
+						shortcutKeyMask), importBankCsvListener);
+
+		menu.add(importFromCsvMenuItem);
 
 		setIgnoreFlagMenuItem = SwingUtils.createMenuItem("Ohita vienti ALV-laskelmassa", null, 'O',
 				KeyStroke.getKeyStroke(KeyEvent.VK_H, shortcutKeyMask),
@@ -1277,6 +1284,15 @@ public class DocumentFrame extends JFrame implements AccountSelectionListener {
 		if (!result) {
 			SwingUtils.showErrorMessage(this, "Arvonlisäverovelkatiliä ei ole määritetty.");
 		}
+	}
+
+	/**
+	 * Lukee pankki CSV:n
+	 */
+	public void importBankCsv() {
+
+		System.out.println("CSV Tuonti");
+
 	}
 
 	/**
@@ -3198,6 +3214,13 @@ public class DocumentFrame extends JFrame implements AccountSelectionListener {
 	private ActionListener vatDocumentListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			createVATDocument();
+		}
+	};
+
+	/* Pankki CSV:n tuonti */
+	private ActionListener importBankCsvListener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			importBankCsv();
 		}
 	};
 

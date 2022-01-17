@@ -1,21 +1,15 @@
 package kirjanpito.ui;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import kirjanpito.models.DocumentModel;
 import kirjanpito.util.AppSettings;
 import kirjanpito.util.Registry;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.logging.*;
 
 /**
  * Kirjanpito-ohjelman käynnistävä luokka.
