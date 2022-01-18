@@ -118,6 +118,7 @@ import kirjanpito.reports.Print;
 import kirjanpito.reports.PrintModel;
 import kirjanpito.reports.VATReportModel;
 import kirjanpito.reports.VATReportPrint;
+import kirjanpito.ui.resources.BankCSVSettingsDialog;
 import kirjanpito.ui.resources.Resources;
 import kirjanpito.util.AppSettings;
 import kirjanpito.util.Registry;
@@ -1300,7 +1301,27 @@ public class DocumentFrame extends JFrame implements AccountSelectionListener {
 			return;
 		}
 
-		System.out.println("CSV Tuonti");
+
+		ArrayList<List> data = new ArrayList<>();
+
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+			String line = reader.readLine();
+			while(line != null){
+				List<String> lineData = Arrays.asList(line.split(","));//splitting lines
+				data.add(lineData);
+				line = reader.readLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace(); //TODO lisää virheenkäsittely
+		}
+
+		System.out.println(data.get(0).size());
+//		openSqliteDataSource(file);
+
+		BankCSVSettingsDialog dialog = new BankCSVSettingsDialog(this, registry);
+		dialog.create();
+		dialog.setVisible(true);
 
 	}
 
