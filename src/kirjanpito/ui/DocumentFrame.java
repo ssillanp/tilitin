@@ -25,8 +25,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.text.DateFormat;
@@ -1290,10 +1289,32 @@ public class DocumentFrame extends JFrame implements AccountSelectionListener {
 	 * Lukee pankki CSV:n
 	 */
 	public void importBankCsv() {
+		final JFileChooser csvFileChooser = new JFileChooser(model.getDatabaseDir()); //TODO Change default dir
+		csvFileChooser.setFileFilter(csvFileFilter);
+		csvFileChooser.setAcceptAllFileFilterUsed(false);
+		csvFileChooser.setDialogTitle("Avaa tilitapahtumat csv");
+		csvFileChooser.showOpenDialog(DocumentFrame.this);
+		File csvFile = csvFileChooser.getSelectedFile();
+
+		if (csvFile == null) {
+			return;
+		}
 
 		System.out.println("CSV Tuonti");
 
 	}
+
+	FileFilter csvFileFilter = new FileFilter() {
+		@Override
+		public boolean accept(File file) {
+			return file.isDirectory() || file.getName().toLowerCase().endsWith(".csv");
+		}
+
+		@Override
+		public String getDescription() {
+			return "Tilitapahtumat csv (.csv)";
+		}
+	};
 
 	/**
 	 * Näyttää vientimallien muokkausikkunan.
